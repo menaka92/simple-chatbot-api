@@ -5,12 +5,20 @@ from langgraph.graph import StateGraph, START, END, add_messages
 from langchain_openai import ChatOpenAI
 import os
 from dotenv import load_dotenv  # Add this import
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load environment variables from .env file
 load_dotenv()
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, specify your domain
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class AgentState(TypedDict):
     messages: Annotated[list, add_messages]

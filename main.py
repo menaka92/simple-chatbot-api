@@ -12,8 +12,14 @@ load_dotenv()
 
 app = FastAPI()
 
+origins = [
+    "https://simple-chatbot-client.onrender.com",  # allow your frontend
+    # or "*" to allow all origins (not recommended for production)
+]
+
 app.add_middleware(
     CORSMiddleware,
+    allow_origins=origins,
     allow_origins=["*"],  # In production, specify your domain
     allow_credentials=True,
     allow_methods=["*"],
